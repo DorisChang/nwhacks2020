@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const path = require('path')
+var uuid = require('node-uuid');
 
 app.use(express.static(path.join(__dirname, 'public')))
 app.use(express.urlencoded({extended:false}))
@@ -10,6 +11,12 @@ app.set('view engine', 'ejs')
 
 app.get('/', (req, res) => {
   res.render('meetwhere');
+});
+
+app.post('/create', (req, res) => {
+  var randomID = uuid.v4();
+  console.log(randomID);
+  res.render('link');
 });
 
 // Listen to the App Engine-specified port, or 8080 otherwise
