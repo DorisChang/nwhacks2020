@@ -33,15 +33,14 @@ app.post('/create', (req, res) => {
  		}
  		
  		if(data == ""){
- 			let array = [{"time": date},{name:location}];
+ 			let array = [{"time": date},{"name":name, "location": location}];
  			obj[event] = array; 			
  			fs.writeFileSync('meetwhere.json', JSON.stringify(obj));
  		}
  		else{
- 			let array = [{"time": date},{name:location}];
+ 			let array = [{"time": date},{"name":name,"location": location}];
  			obj = JSON.parse(data);
  			obj[event] = array;
-
  			fs.writeFileSync('meetwhere.json', JSON.stringify(obj));
  		}
  	});
