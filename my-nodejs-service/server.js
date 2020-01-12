@@ -1,15 +1,15 @@
 const express = require('express');
 const app = express();
+const path = require('path')
 
 app.use(express.static(path.join(__dirname, 'public')))
 app.use(express.urlencoded({extended:false}))
 app.use(express.json())
-app.use(errorHandler)
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'ejs')
 
 app.get('/', (req, res) => {
-  res.send('Hello from App Engine!');
+  res.render('meetwhere');
 });
 
 // Listen to the App Engine-specified port, or 8080 otherwise
