@@ -1,9 +1,52 @@
 <!DOCTYPE html>
 <html>
+<head>
+<link href="https://fonts.googleapis.com/css?family=Questrial&display=swap" rel="stylesheet">
+ <style>
+    h1,input,#copy, #viewMap{
+            color: green;
+            font-family: 'Questrial', sans-serif;
+            font-size: 40pt;
+    }
+    input,#copy,#viewMap{
+            font-size: 20pt;
+            border-radius: 10px;
+    }
+    #copy,#viewMap{
+        opacity: 0.8;
+    }
+    #copy:hover,#viewMap:hover{
+        opacity: 1;
+        cursor: pointer;
+    }
+    </style>
+</head>
 <body>
+<div align="center">
+    <h1 align="center">Here is your link: </h1>
+    <input id="link" type="text" size="60" value="https://meetwhere.appspot.com/">
+    <button id="copy" onclick="copyText()">Copy link!</button>
+<form name="form" action="/location" method="POST">
+    <input id="submit" type="submit" value="View map!" style="font-size: 48pt;">
+</form>
+</div>
 
-<h1>Here is your link: </h1>
-<input name="link" type="text" value="thisisthelink.com">
+<script>
+function copyText(){
+    /* Get the text field */
+  var linkText = document.getElementById("link");
 
+  /* Select the text field */
+  linkText.select();
+  linkText.setSelectionRange(0, 99999); /*For mobile devices*/
+
+  /* Copy the text inside the text field */
+  document.execCommand("copy");
+
+  /* Alert the copied text */
+  alert("Copied the text: " + linkText.value);
+}
+  
+</script>
 </body>
 </html>

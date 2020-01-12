@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link href="https://fonts.googleapis.com/css?family=Questrial&display=swap" rel="stylesheet">
+ <style>
+    h1,input,#copy,p{
+            color: green;
+            font-family: 'Questrial', sans-serif;
+            font-size: 40pt;
+    }
+    input,#copy,p{
+            font-size: 20pt;
+            border-radius: 10px;
+    }
+    #copy{
+        opacity: 0.8;
+    }
+    #copy:hover{
+        opacity: 1;
+        cursor: pointer;
+    }
+    div{
+        border: 0px;
+    
+    }
+      /* Set the size of the div element that contains the map */
+      #map {
+        height: 500px;  /* The height is 400 pixels */
+        width: 50%;  /* The width is the width of the web page */
+        margin-left: 50%;
+       }
+    </style>
+</head>
+<body>
+    <h1 align="center">Current Meeting Location</h1>
+    <div align="center" style="width: 95%; display: table;">
+        <div style="display: table-row; height: 100px;">
+            <div align="center" style="display: table-cell;" id="info">
+                <p>Organizer: Grace</p>
+                <input type="text" placeholder="Add your location">
+                <input type="submit" value="Add me!">
+            </div>
+            <!--The div element for the map -->
+            <div align="center" id="map" style="display: table-cell;"></div>
+        </div>
+    </div>
+
+
+<script>
+// Initialize and add the map
+/*function initMap() {
+  // The location of Uluru
+  var uluru = {lat: -25.344, lng: 131.036};
+  // The map, centered at Uluru
+  var map = new google.maps.Map(
+      document.getElementById('map'), {zoom: 4, center: uluru});
+  // The marker, positioned at Uluru
+  var marker = new google.maps.Marker({position: uluru, map: map});
+}*/
+function initMap() {
+
+	var broadway = {
+		info: '<strong>Whole Foods</strong><br>\
+					510 W 8th Ave <br> Vancouver, BC V5Z 1C5<br>\
+					<a href="https://goo.gl/maps/t5ZRsJ9haspzmgLW9">Get Directions</a>',
+		lat: 49.264022,
+		long: -123.1152825
+	};
+
+	var ubc = {
+		info: '<strong>Life Sciences Institute</strong><br>\
+					2350 Health Sciences Mall<br> Vancouver, BC V6T 1Z3<br>\
+					<a href="https://goo.gl/maps/gwTmNzh5XP1F9gWg8">Get Directions</a>',
+		lat: 49.262361,
+		long: -123.244944
+	};
+
+	var pw = {
+		info: '<strong>Prince of Wales Secondary School</strong><br>\r\
+					2250 Eddington Dr<br> Vancouver, BC V6L 2E7<br>\
+					<a href="https://goo.gl/maps/Eyhxysz2h9nP3Qf3A">Get Directions</a>',
+		lat: 49.2455558, 
+		long: -123.1575639
+	};
+
+	var locations = [
+      [broadway.info, broadway.lat, broadway.long, 0],
+      [ubc.info, ubc.lat, ubc.long, 1],
+      [pw.info, pw.lat, pw.long, 2],
+    ];
+
+	var map = new google.maps.Map(document.getElementById('map'), {
+		zoom: 12,
+		center: new google.maps.LatLng(49.261855, -123.179748),
+		mapTypeId: google.maps.MapTypeId.ROADMAP
+	});
+
+	var infowindow = new google.maps.InfoWindow({});
+
+	var marker, i;
+
+	for (i = 0; i < locations.length; i++) {
+		marker = new google.maps.Marker({
+			position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+			map: map
+		});
+
+		google.maps.event.addListener(marker, 'click', (function (marker, i) {
+			return function () {
+				infowindow.setContent(locations[i][0]);
+				infowindow.open(map, marker);
+			}
+		})(marker, i));
+	}
+}
+</script>
+
+
+<script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAzieLQr8qUeqfQeLGacs71GSqjoJ0dyI8&callback=initMap">
+</script>
+</body>
+</html>

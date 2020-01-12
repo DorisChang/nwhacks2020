@@ -19,6 +19,10 @@ app.post('/create', (req, res) => {
   res.render('link');
 });
 
+app.post('/location', (req, res) => {
+  res.render('map');
+});
+
 // Listen to the App Engine-specified port, or 8080 otherwise
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {

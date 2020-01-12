@@ -1,26 +1,131 @@
 <!DOCTYPE html>
 <html>
+<head>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <title>Home</title>
+    <link rel="stylesheet" href="/meetwhere.css">
+    <link href="https://fonts.googleapis.com/css?family=Questrial&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        body {font-family: 'Questrial', sans-serif;}
+        h1,input,#submit,select,label{
+            color: green;
+            font-family: 'Questrial', sans-serif;
+            font-size: 40pt;
+        }
+        input,label{
+            font-size: 30pt;
+            border-radius: 10px;
+        }
+        body, html{
+            background-image: url("https://ibb.co/3yYgC6N");
+            height: 100%;
+
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            overflow-y: auto;
+            margin: 0 ;
+            padding: 0 ;
+        }
+
+        .material-icons.md-48 { font-size: 48px; }
+
+        #submit{
+            opacity: 0.9;
+        }
+
+        #submit:hover{
+            cursor: pointer;
+            opacity: 1;
+        }
+
+    </style>
+</head>
+
 <body>
 
-<h1>Meet Where</h1>
-
+<h1 align="center"> <i class="material-icons">
+my_location
+</i> Meet Where</h1>
+<div align="center">
 <form name="form" action="/create" method="POST">
-	Name: 
-	<input id="name" type="text" name="name"><br>
-	Event: 
-	<input id="event" type="text" name="event"><br>
-	Time: 
-	<input id="time" type="date" name="date"><br>
-	My Location: 
-	<input id="location" type="text" name="location"><br>
-	Location Type: 
-	<select>
-		<option value="Restaurant">Restaurant</option>
-		<option value="Library">Library</option>'
-		<option value="Cafe">Cafe</option>
-	</select><br>
-	<input type="submit" value="Enter">
+    <table id="addTable" align="center" border="0">
+    <tr>
+        <td><p><label>Name:</label></p></td>
+        <td><input id="name" type="text" name="name"><br></td>
+    </tr>
+    <tr>
+        <td><p><label>Event:</label></p></td>
+        <td><input id="event" type="text" name="event"><br></td>
+    </tr>
+    <tr>
+        <td><p><label>Time:</label></p></td>
+        <td><input id="time" type="date" name="date"><br></td>
+    </tr>
+    <tr>
+        <td><p><label>My Location:</label></p></td>
+        <td><input id="location" type="text" name="location"><br></td>
+    </tr>
+    <tr>
+        <td><p><label>Location Type:</label></p></td>
+        <td align="center">
+        <select>
+		    <option value="Restaurant">Restaurant</option>
+		    <option value="Library">Library</option>'
+		    <option value="Cafe">Cafe</option>
+	    </select><br>
+    </td>
+    </tr>
+    </table>
+	<input id="submit" type="submit" value="Create" style="font-size: 48pt;">
 </form>
+
+
+
+</div>
+<form id="location-form">
+    
+    <input id="submitLocation" type="submit" value="Location" style="font-size: 48pt;">
+</form>
+
+<script>
+    // Call Geocode
+    //geocode();
+    // Get location form
+    var locationForm = document.getElementById('location-form');
+    // Listen for submit
+    locationForm.addEventListener('submit', geocode);
+    function geocode(e){
+      // Prevent actual submit
+      e.preventDefault();
+      var location = document.getElementById('location').value;
+      axios.get('https://maps.googleapis.com/maps/api/geocode/json',{
+        params:{
+          address:location,
+          key:'AIzaSyDFxy9Fo3pOCQFxDZizXcB0lxxfhiImXmY'
+        }
+      })
+      .then(function(response){
+        // Log full response
+        console.log(response);
+
+        // Geometry
+        var lat = response.data.results[0].geometry.location.lat;
+        var lng = response.data.results[0].geometry.location.lng;
+        console.log(lat);
+        console.log(lng);
+
+        // Output to app
+        document.getElementById('formatted-address').innerHTML = formattedAddressOutput;
+        document.getElementById('address-components').innerHTML = addressComponentsOutput;
+        document.getElementById('geometry').innerHTML = geometryOutput;
+      })
+      .catch(function(error){
+        console.log(error);
+      });
+    }
+  </script>
 
 </body>
 </html>
